@@ -1,7 +1,7 @@
 const wfrm = document.querySelector("#wfrm")
 class Board {
-    constructor(subject, content, writer) {
-        this.index = 0
+    constructor(index, subject, content, writer) {
+        this.index = index
         this.subject = subject
         this.writer = writer
         this.content = content
@@ -17,12 +17,12 @@ function init(e) {
     const writer = e.target.writer.value
     const content = e.target.content.value
 
-    const instance = new Board(subject, writer, content)
-
     const boards = JSON.parse(localStorage.getItem("boards"))
+    let index = boards.length - 1
+    const instance = new Board(index, subject, writer, content)
+
     boards.push(instance)
 
-    let index = boards.length - 1
 
     const item = JSON.stringify(boards)
     localStorage.setItem("boards", item)
