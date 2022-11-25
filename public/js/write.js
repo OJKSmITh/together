@@ -18,12 +18,18 @@ function init(e) {
     const content = e.target.content.value
 
     const instance = new Board(subject, writer, content)
-    const board = instance
-    const boards = JSON.stringify(board)
-    localStorage.setItem("boards", boards)
+
+    const boards = JSON.parse(localStorage.getItem("boards"))
+    boards.push(instance)
+
+    let index = boards.length - 1
+
+    const item = JSON.stringify(boards)
+    localStorage.setItem("boards", item)
+
     e.target.reset()
 
+    location.href = `/board/view.html?index=` + index
 }
-
 
 wfrm.addEventListener("submit", init)
